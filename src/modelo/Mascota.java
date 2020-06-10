@@ -13,7 +13,8 @@ public abstract class Mascota {
     private boolean estaEnferma;
     private String raza;
     private Dueño elDueño;
-    protected String codigoAlimento;
+    protected TipoAlimento tipoAlimento;
+    protected int vecesAlimentacion;
     protected double comidaKilos;
 
     public Mascota(int id, String nombre, boolean estaEnferma, String raza, Dueño elDueño) {
@@ -22,7 +23,8 @@ public abstract class Mascota {
         this.estaEnferma = estaEnferma;
         this.raza = raza;
         this.elDueño = elDueño;
-        this.codigoAlimento = "";
+        this.tipoAlimento = TipoAlimento.PERRO;
+        this.vecesAlimentacion = 0;
         this.comidaKilos= 0;
     }
     
@@ -68,17 +70,21 @@ public abstract class Mascota {
         this.elDueño = elDueño;
     }
 
-    public String getCodigoAlimento() {
-        return codigoAlimento;
+    public TipoAlimento getCodigoAlimento() {
+        return tipoAlimento;
     }
 
+    public int getVecesAlimentacion() {
+        return vecesAlimentacion;
+    }
+    
     public double getComidaKilos() {
         return comidaKilos;
     }
 
     @Override
     public String toString() {
-        return "Mascota{" + "id=" + id + ", nombre=" + nombre + ", estaEnferma=" + estaEnferma + ", raza=" + raza + ", elDue\u00f1o=" + elDueño + ", codigoAlimento=" + codigoAlimento + ", comidaKilos=" + comidaKilos + '}';
+        return "Mascota{" + "id=" + id + ", nombre=" + nombre + ", estaEnferma=" + estaEnferma + ", raza=" + raza + ", elDue\u00f1o=" + elDueño + ", tipoAlimento=" + tipoAlimento + ", vecesAlimentacion=" + vecesAlimentacion + ", comidaKilos=" + comidaKilos + '}';
     }
      
 }

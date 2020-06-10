@@ -14,8 +14,9 @@ public class Pez extends Mascota {
     
     @Override
     protected void definirAlimentacion() {
-        super.codigoAlimento = "pez";
-        super.comidaKilos = 0.5;
+        super.tipoAlimento = TipoAlimento.PEZ;
+        super.vecesAlimentacion = 1;
+        super.comidaKilos = 0.3;
     }
     
 }
