@@ -8,40 +8,20 @@ package modelo;
  */
 public class Alimento {
     
-    private String codigo;
-    private String nombre;
-    private String marca;
+    private TipoAlimento tipo;
     private double existenciaKilos;
 
-    public Alimento(String codigo, String nombre, String marca, double existenciaKilos) {
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.marca = marca;
+    public Alimento(TipoAlimento tipo, double existenciaKilos) {
+        this.tipo = tipo;
         this.existenciaKilos = existenciaKilos;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public TipoAlimento getTipo() {
+        return tipo;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setTipo(TipoAlimento tipo) {
+        this.tipo = tipo;
     }
 
     public double getExistenciaKilos() {
@@ -54,7 +34,7 @@ public class Alimento {
 
     @Override
     public String toString() {
-        return "Alimento{" + "codigo=" + codigo + ", nombre=" + nombre + ", marca=" + marca + ", existenciaKilos=" + existenciaKilos + '}';
+        return "Alimento{" + "tipo=" + tipo + ", existenciaKilos=" + existenciaKilos + '}';
     }
     
 }

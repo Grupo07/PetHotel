@@ -12,6 +12,7 @@ public class BitacoraAlimentacion {
     
     private Date fecha;
     private EstadoAlimentacion estado;
+    private String horario;
 
     public BitacoraAlimentacion(Date fecha, EstadoAlimentacion estado) {
         this.fecha = fecha;
@@ -34,9 +35,17 @@ public class BitacoraAlimentacion {
         this.estado = estado;
     }
 
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
     @Override
     public String toString() {
-        return "BitacoraAlimentacion{" + "fecha=" + fecha + ", estado=" + estado + '}';
+        return "BitacoraAlimentacion{" + "fecha=" + fecha + ", estado=" + estado + ", horario=" + horario + '}';
     }
     
 }
