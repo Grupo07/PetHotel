@@ -1,6 +1,7 @@
 
 package modelo;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,7 +11,7 @@ import java.util.Date;
  * 
  * @author Luis Mariano Ramírez Segura
  */
-public class Contrato {
+public class Contrato implements Serializable{
     
     private int numero;
     private LocalDateTime desde;
@@ -18,6 +19,7 @@ public class Contrato {
     private Mascota Mascota;
     private double costoXDia;
     private ArrayList<BitacoraAlimentacion> registros;
+    private boolean disponible;
 
     public Contrato( LocalDateTime desde, LocalDateTime hasta, Mascota Mascota, double costoXDia) {
         this.desde = desde;
@@ -25,6 +27,15 @@ public class Contrato {
         this.Mascota = Mascota;
         this.costoXDia = costoXDia;
         this.registros = new ArrayList<>();
+        this.disponible = true;
+    }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean Disponible) {
+        this.disponible = Disponible;
     }
 
     public int getNumero() {

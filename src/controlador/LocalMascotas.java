@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import modelo.AdministradorArchivos;
 import modelo.Alimento;
 import modelo.Contrato;
 import modelo.Dueño;
@@ -21,14 +22,26 @@ import modelo.TipoAlimento;
 public class LocalMascotas {
 
     private static int MAXIMA_CAPACIDAD = 10;
-    private static int HORA_ALIMENTACION = 12;
+    private static String[] HORAS_ALIMENTACION = {"6am", "12md", "6pm"};
     private Contrato[] contratos;
     private ArrayList<Alimento> inventario;
 
     public LocalMascotas() {
         this.contratos = new Contrato[10];
         this.inventario = new ArrayList<>();
+        this.inventario = AdministradorArchivos.cargarInventario();
+        this.contratos = AdministradorArchivos.cargarContratos();
     }
+
+    public Contrato[] getContratos() {
+        return contratos;
+    }
+
+    public ArrayList<Alimento> getInventario() {
+        return inventario;
+    }
+    
+    
 
     public void simularIngresos(int n) {
         Random random = new Random();
@@ -76,17 +89,29 @@ public class LocalMascotas {
         if (index >= 0) {
             contrato.setNumero(index);
             contratos[index] = contrato;
+            AdministradorArchivos.guardarContratos(contratos);
+            AdministradorArchivos.guardarMascotas(obtenerListaMascota());
+            
         } else {
             contrato.setNumero(-1);
             System.out.println("No hay campo para:" + contrato.toString());
         }
         return false;
     }
-
+    public ArrayList<Mascota> obtenerListaMascota(){
+        ArrayList<Mascota> lista = new ArrayList<Mascota>();
+        for(int i = 0; i < 10; i++){
+            if(contratos[i] != null){
+                lista.add(contratos[i].getMascota());
+            }
+        }
+        return lista;
+    }
     public void actualizarAlimento(modelo.TipoAlimento tipo, double existenciaKilos) {
         for (int i = 0; i < inventario.size(); i++) {
             if (inventario.get(i).getTipo() == tipo) {
                 inventario.get(i).setExistenciaKilos(existenciaKilos);
+                AdministradorArchivos.guardarInventario(inventario);
             }
         }
     }
@@ -100,9 +125,33 @@ public class LocalMascotas {
         }
         return resultado;
     }
+    public void retirarContrato(int index){
+        contratos[index] = null;
+        AdministradorArchivos.guardarContratos(contratos);
+        AdministradorArchivos.guardarMascotas(obtenerListaMascota());
+    }
 
-    public ArrayList<String> planearAlimentacion() {
-        return new ArrayList<String>();
+    public String planearAlimentacion() {
+        String resultado = "";
+        ArrayList<Mascota> mascotas = obtenerListaMascota();
+        double alimentoPerro = 0;
+        double alimentoGato = 0;
+        double alimentoPez = 0;
+        double alimentoPajaro = 0;
+        for(int i = 0; i < mascotas.size(); i++){
+            if(mascotas.get(i).getCodigoAlimento() == TipoAlimento.GATO){
+                alimentoGato += mascotas.get(i).getComidaKilos();
+            } else if (mascotas.get(i).getCodigoAlimento() == TipoAlimento.PERRO){
+                alimentoPerro += mascotas.get(i).getComidaKilos();
+            } else if (mascotas.get(i).getCodigoAlimento() == TipoAlimento.PAJARO){
+                alimentoPajaro += mascotas.get(i).getComidaKilos();
+            } else if (mascotas.get(i).getCodigoAlimento() == TipoAlimento.PEZ) {
+                alimentoPez += mascotas.get(i).getComidaKilos();
+            } 
+        }
+        resultado = "Gato : " + alimentoGato + "\nPerro : " + alimentoPerro +
+                "\nPez : " + alimentoPez + "\nPajaro : " + alimentoPajaro; 
+        return resultado;
     }
 
     public String alimentarMascota(Date fecha, int idMascota) {
@@ -115,6 +164,10 @@ public class LocalMascotas {
 
     public void generarBitacoraDeFecha(Date fecha) {
 
+    }
+    
+    public void actualizarEstadoContrato(int id, boolean disponible){
+        contratos[id].setDisponible(disponible);
     }
 
     public int cupoDisponible() {

@@ -1,12 +1,14 @@
 
 package modelo;
 
+import java.io.Serializable;
+
 /**
  * Dueño de una mascota.
  * 
  * @author Luis Mariano Ramírez Segura
  */
-public class Dueño {
+public class Dueño implements Serializable{
     
     private String nombre;
     private String celular;

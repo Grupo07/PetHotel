@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,7 +23,7 @@ public class AdministradorArchivos {
      * Guarta un arrayList de contratos en un archivo binario .dat
      * @param contratos 
      */
-    public static void  guardarContratos(ArrayList<Contrato> contratos) {
+    public static void  guardarContratos(Contrato[] contratos) {
  
         try {
             
@@ -85,14 +86,14 @@ public class AdministradorArchivos {
      *Busca el archivo contratos.dat, lo lee y devuelve un arraylist de contratatos
      * @return un arraylist de contratatos
      */
-    public static ArrayList<Contrato> cargarContratos() {
+    public static Contrato[] cargarContratos() {
         
         FileInputStream entradaArchivo;
         try {
             
             entradaArchivo = new FileInputStream(new File("contratos.dat"));
             ObjectInputStream objetoEntrante = new ObjectInputStream(entradaArchivo);
-            ArrayList<Contrato> array = (ArrayList<Contrato>) objetoEntrante.readObject();
+            Contrato[] array = (Contrato[]) objetoEntrante.readObject();
             return array;
             
         } catch (FileNotFoundException ex) {
@@ -123,7 +124,7 @@ public class AdministradorArchivos {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AdministradorArchivos.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(AdministradorArchivos.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("No existe el archivo" + ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AdministradorArchivos.class.getName()).log(Level.SEVERE, null, ex);
         }

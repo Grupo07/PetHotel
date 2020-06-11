@@ -1,12 +1,14 @@
 
 package modelo;
 
+import java.io.Serializable;
+
 /**
  * Mascota que se puede ser ingresada en el hotel de mascotas.
  * 
  * @author Luis Mariano Ramírez Segura
  */
-public abstract class Mascota {
+public abstract class Mascota implements Serializable{
     
     private int id;
     private String nombre;

@@ -6,6 +6,8 @@
 package tests;
 
 import controlador.LocalMascotas;
+import modelo.AdministradorArchivos;
+import modelo.TipoAlimento;
 
 /**
  *
@@ -18,7 +20,7 @@ public class LocalMascotasTest {
      */
     public static void main(String[] args) {
         LocalMascotas local = new LocalMascotas();
-        local.simularIngresos(12);
+        System.out.println(local.getInventario().toString()); 
     }
     
 }

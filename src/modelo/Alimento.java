@@ -1,12 +1,14 @@
 
 package modelo;
 
+import java.io.Serializable;
+
 /**
  * Alimento de una mascota.
  * 
  * @author Luis Mariano Ramírez Segura
  */
-public class Alimento {
+public class Alimento implements Serializable{
     
     private TipoAlimento tipo;
     private double existenciaKilos;
