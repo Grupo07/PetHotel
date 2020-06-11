@@ -14,8 +14,9 @@ public class Pajaro extends Mascota {
     
     @Override
     protected void definirAlimentacion() {
-        super.codigoAlimento = "pajaro";
-        super.comidaKilos = 0.7;
+        super.tipoAlimento = TipoAlimento.PAJARO;
+        super.vecesAlimentacion = 1;
+        super.comidaKilos = 0.3;
     }
     
 }
