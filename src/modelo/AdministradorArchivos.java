@@ -1,16 +1,21 @@
 package modelo;
 
+import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * Clase encargada del manejo de archivos binarios .dat
@@ -38,6 +43,29 @@ public class AdministradorArchivos {
             System.out.println("Error: Fallo en la escritura en el fichero. " + ioe);
         }
  
+    }
+    /**
+     *Busca el archivo contratos.dat, lo lee y devuelve un arraylist de contratatos
+     * @return un arraylist de contratatos
+     */
+    public static Contrato[] cargarContratos() {
+        FileInputStream entradaArchivo;
+        try {
+            
+            entradaArchivo = new FileInputStream(new File("contratos.dat"));
+            ObjectInputStream objetoEntrante = new ObjectInputStream(entradaArchivo);
+            Contrato[] array = (Contrato[]) objetoEntrante.readObject();
+            return array;
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AdministradorArchivos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(AdministradorArchivos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AdministradorArchivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+        
     }
     
     /**
@@ -82,31 +110,7 @@ public class AdministradorArchivos {
  
     }
 
-    /**
-     *Busca el archivo contratos.dat, lo lee y devuelve un arraylist de contratatos
-     * @return un arraylist de contratatos
-     */
-    public static Contrato[] cargarContratos() {
-        
-        FileInputStream entradaArchivo;
-        try {
-            
-            entradaArchivo = new FileInputStream(new File("contratos.dat"));
-            ObjectInputStream objetoEntrante = new ObjectInputStream(entradaArchivo);
-            Contrato[] array = (Contrato[]) objetoEntrante.readObject();
-            return array;
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(AdministradorArchivos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(AdministradorArchivos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AdministradorArchivos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return null;
-        
-    }
+    
     /**
      * Busca el archivo contratos.dat, lo lee y devuelve un arraylist del inventario
      * @return un arraylist del Inventario
@@ -132,5 +136,17 @@ public class AdministradorArchivos {
         return null;
         
     }
+
+    public static void guardarReporte(String resultado, String nombreRegistro) {
+        try (FileWriter file = new FileWriter(nombreRegistro)) {
+            file.write(resultado);
+            file.flush();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
     
 }

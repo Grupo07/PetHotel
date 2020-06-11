@@ -15,9 +15,10 @@ public class BitacoraAlimentacion {
     private EstadoAlimentacion estado;
     private String horario;
 
-    public BitacoraAlimentacion(LocalDateTime fecha, EstadoAlimentacion estado) {
+    public BitacoraAlimentacion(LocalDateTime fecha, EstadoAlimentacion estado, String horario) {
         this.fecha = fecha;
         this.estado = estado;
+        this.horario = horario;
     }
 
     public LocalDateTime getFecha() {

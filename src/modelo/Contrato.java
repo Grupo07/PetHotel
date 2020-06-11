@@ -30,6 +30,16 @@ public class Contrato implements Serializable{
         this.disponible = true;
     }
 
+    public Contrato() {
+       this.numero = -1;
+       this.desde = null;
+       this.hasta = null;
+       this.Mascota = null;
+       this.costoXDia = -1;
+       this.registros = null;
+       this.disponible = false; 
+    }
+
     public boolean isDisponible() {
         return disponible;
     }

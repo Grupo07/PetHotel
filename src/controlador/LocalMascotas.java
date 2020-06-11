@@ -2,13 +2,13 @@ package controlador;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Random;
 import modelo.AdministradorArchivos;
 import modelo.Alimento;
 import modelo.BitacoraAlimentacion;
 import modelo.Contrato;
 import modelo.Dueño;
+import modelo.EstadoAlimentacion;
 import modelo.Gato;
 import modelo.Mascota;
 import modelo.Pajaro;
@@ -41,8 +41,10 @@ public class LocalMascotas {
     public ArrayList<Alimento> getInventario() {
         return inventario;
     }
-    
-    
+
+    public void setContratos(Contrato[] contratos) {
+        this.contratos = contratos;
+    }
 
     public void simularIngresos(int n) {
         Random random = new Random();
@@ -92,22 +94,24 @@ public class LocalMascotas {
             contratos[index] = contrato;
             AdministradorArchivos.guardarContratos(contratos);
             AdministradorArchivos.guardarMascotas(obtenerListaMascota());
-            
+
         } else {
             contrato.setNumero(-1);
             System.out.println("No hay campo para:" + contrato.toString());
         }
         return false;
     }
-    public ArrayList<Mascota> obtenerListaMascota(){
+
+    public ArrayList<Mascota> obtenerListaMascota() {
         ArrayList<Mascota> lista = new ArrayList<Mascota>();
-        for(int i = 0; i < 10; i++){
-            if(contratos[i] != null){
+        for (int i = 0; i < 10; i++) {
+            if (contratos[i].getMascota() != null) {
                 lista.add(contratos[i].getMascota());
             }
         }
         return lista;
     }
+
     public void actualizarAlimento(modelo.TipoAlimento tipo, double existenciaKilos) {
         for (int i = 0; i < inventario.size(); i++) {
             if (inventario.get(i).getTipo() == tipo) {
@@ -120,14 +124,15 @@ public class LocalMascotas {
     public String mostrarDetalleMascotas() {
         String resultado = "";
         for (int i = 0; i < 10; i++) {
-            if (contratos[i] != null) {
+            if (contratos[i].getMascota() != null) {
                 resultado += contratos[i].getMascota().toString() + "\n";
             }
         }
         return resultado;
     }
-    public void retirarContrato(int index){
-        contratos[index] = null;
+
+    public void retirarContrato(int index) {
+        contratos[index] = new Contrato();
         AdministradorArchivos.guardarContratos(contratos);
         AdministradorArchivos.guardarMascotas(obtenerListaMascota());
     }
@@ -139,65 +144,135 @@ public class LocalMascotas {
         double alimentoGato = 0;
         double alimentoPez = 0;
         double alimentoPajaro = 0;
-        for(int i = 0; i < mascotas.size(); i++){
-            if(mascotas.get(i).getCodigoAlimento() == TipoAlimento.GATO){
+        for (int i = 0; i < mascotas.size(); i++) {
+            if (mascotas.get(i).getCodigoAlimento() == TipoAlimento.GATO) {
                 alimentoGato += mascotas.get(i).getComidaKilos();
-            } else if (mascotas.get(i).getCodigoAlimento() == TipoAlimento.PERRO){
+            } else if (mascotas.get(i).getCodigoAlimento() == TipoAlimento.PERRO) {
                 alimentoPerro += mascotas.get(i).getComidaKilos();
-            } else if (mascotas.get(i).getCodigoAlimento() == TipoAlimento.PAJARO){
+            } else if (mascotas.get(i).getCodigoAlimento() == TipoAlimento.PAJARO) {
                 alimentoPajaro += mascotas.get(i).getComidaKilos();
             } else if (mascotas.get(i).getCodigoAlimento() == TipoAlimento.PEZ) {
                 alimentoPez += mascotas.get(i).getComidaKilos();
-            } 
+            }
         }
-        resultado = "Gato : " + alimentoGato + "\nPerro : " + alimentoPerro +
-                "\nPez : " + alimentoPez + "\nPajaro : " + alimentoPajaro; 
+        resultado = "Gato : " + alimentoGato + "\nPerro : " + alimentoPerro
+                + "\nPez : " + alimentoPez + "\nPajaro : " + alimentoPajaro;
         return resultado;
     }
 
     public String reportarAlimentacion(BitacoraAlimentacion bitacora, int idMascota) {
         int indexContrato = -1;
-        for(int i = 0; i < 10; i++){
-            if(contratos[i].getMascota().getId() == idMascota){
+        for (int i = 0; i < 10; i++) {
+            if (contratos[i].getMascota().getId() == idMascota) {
                 indexContrato = i;
             }
         }
-        if(indexContrato == -1){
+        if (indexContrato == -1) {
             return "No existe esa mascota";
         } else {
-            for(int j = 0; j < contratos[indexContrato].getRegistros().size(); j++) {
-                if(contratos[indexContrato].getRegistros().get(j).getFecha()
-                        == bitacora.getFecha()){
-                    if(contratos[indexContrato].getRegistros().get(j).getHorario()
-                            == bitacora.getHorario()){
-                        return "Mascota ya fue alimentada este día y horario";
+            //Buscar si ya se alimento
+            for (int j = 0; j < contratos[indexContrato].getRegistros().size(); j++) {
+                if (contratos[indexContrato].getRegistros().get(j).getFecha().getYear()
+                        == bitacora.getFecha().getYear()) {
+                    if (contratos[indexContrato].getRegistros().get(j).getFecha().getMonth()
+                            == bitacora.getFecha().getMonth()) {
+                        if (contratos[indexContrato].getRegistros().get(j).getFecha().getDayOfMonth()
+                                == bitacora.getFecha().getDayOfMonth()) {
+                            if (contratos[indexContrato].getRegistros().get(j).getHorario()
+                                    == bitacora.getHorario()) {
+                                return "Mascota ya fue alimentada este día y horario";
+                            }
+                        }
                     }
                 }
             }
             contratos[indexContrato].agregarRegistro(bitacora);
-            return contratos[indexContrato].getMascota().getNombre() 
+            return contratos[indexContrato].getMascota().getNombre()
                     + "ha sido alimentado";
         }
     }
-    public void simularAlimentacionMascotas(Date fecha) {
 
+    public void simularAlimentacionMascotas(LocalDateTime fecha) {
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            if (contratos[i].getMascota() != null) {
+                contratos[i].setDisponible(random.nextBoolean());
+                EstadoAlimentacion estado = EstadoAlimentacion.ALIMENTADO;
+                if (contratos[i].getMascota().isEstaEnferma()) {
+                    estado = EstadoAlimentacion.NO_QUISO;
+                } else if (contratos[i].isDisponible() == false) {
+                    estado = EstadoAlimentacion.SIN_INFORMACION;
+                } else if (contratos[i].getMascota().getComidaKilos()
+                        > cantidadAlimento(contratos[i].getMascota().getCodigoAlimento())) {
+                    estado = EstadoAlimentacion.NO_HAY_ALIMENTO;
+                }
+                for (int j = 0; j < contratos[i].getMascota().getVecesAlimentacion(); j++) {
+                    BitacoraAlimentacion registro = new BitacoraAlimentacion(fecha, estado, HORAS_ALIMENTACION[j]);
+                    reportarAlimentacion(registro, contratos[i].getMascota().getId());
+                }
+
+            }
+        }
     }
 
-    public void generarBitacoraDeFecha(Date fecha) {
-
+    public double cantidadAlimento(TipoAlimento tipo) {
+        for (int i = 0; i < inventario.size(); i++) {
+            if (inventario.get(i).getTipo() == tipo) {
+                return inventario.get(i).getExistenciaKilos();
+            }
+        }
+        return -1;
     }
-    
-    public void actualizarEstadoContrato(int id, boolean disponible){
+
+    public void generarBitacoraDeFecha(LocalDateTime fecha) {
+        String resultado = "";
+        for (int i = 0; i < 10; i++) {
+            if (contratos[i].getMascota() != null) {
+                resultado += contratos[i].getMascota().getId() + "/"
+                        + contratos[i].getMascota().getNombre() + ": "
+                        + obtenerRegistros(fecha, contratos[i].getRegistros())
+                        + "\n";
+            }
+        }
+        AdministradorArchivos.guardarReporte(resultado,
+                "Reporte" + fecha.getDayOfMonth() + "/" + fecha.getDayOfMonth() + ".txt");
+    }
+
+    public String obtenerRegistros(LocalDateTime fecha,
+            ArrayList<BitacoraAlimentacion> lista) {
+
+        String resultado = "";
+        for (int i = 0; i < lista.size(); i++) {
+            if (lista.get(i).getFecha().getYear() == fecha.getYear()) {
+                if (lista.get(i).getFecha().getMonth() == fecha.getMonth()) {
+                    if (lista.get(i).getFecha().getDayOfMonth() == fecha.getDayOfMonth()) {
+                        resultado += lista.get(i).toString();
+                    }
+                }
+            }
+        }
+        return resultado;
+    }
+
+    public void actualizarEstadoContrato(int id, boolean disponible) {
         contratos[id].setDisponible(disponible);
     }
 
     public int cupoDisponible() {
         for (int i = 0; i < 10; i++) {
-            if (contratos[i] == null) {
+            if (contratos[i].getMascota() == null) {
                 return i;
             }
         }
         return -1;
+    }
+
+    public void llenarNulls() {
+        for (int i = 0; i < 10; i++) {
+            contratos[i] = new Contrato();
+        }
+        AdministradorArchivos.guardarContratos(contratos);
+        AdministradorArchivos.guardarMascotas(obtenerListaMascota());
     }
 
 }

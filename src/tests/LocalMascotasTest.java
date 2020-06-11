@@ -6,7 +6,9 @@
 package tests;
 
 import controlador.LocalMascotas;
+import java.time.LocalDateTime;
 import modelo.AdministradorArchivos;
+import modelo.Contrato;
 import modelo.TipoAlimento;
 
 /**
@@ -20,7 +22,6 @@ public class LocalMascotasTest {
      */
     public static void main(String[] args) {
         LocalMascotas local = new LocalMascotas();
-        System.out.println(local.getInventario().toString()); 
     }
     
 }
