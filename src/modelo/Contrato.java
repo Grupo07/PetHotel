@@ -1,6 +1,7 @@
 
 package modelo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,13 +13,13 @@ import java.util.Date;
 public class Contrato {
     
     private int numero;
-    private Date desde;
-    private Date hasta;
+    private LocalDateTime desde;
+    private LocalDateTime hasta;
     private Mascota Mascota;
     private double costoXDia;
     private ArrayList<BitacoraAlimentacion> registros;
 
-    public Contrato( Date desde, Date hasta, Mascota Mascota, double costoXDia) {
+    public Contrato( LocalDateTime desde, LocalDateTime hasta, Mascota Mascota, double costoXDia) {
         this.desde = desde;
         this.hasta = hasta;
         this.Mascota = Mascota;
@@ -34,19 +35,19 @@ public class Contrato {
         this.numero = numero;
     }
 
-    public Date getDesde() {
+    public LocalDateTime getDesde() {
         return desde;
     }
 
-    public void setDesde(Date desde) {
+    public void setDesde(LocalDateTime desde) {
         this.desde = desde;
     }
 
-    public Date getHasta() {
+    public LocalDateTime getHasta() {
         return hasta;
     }
 
-    public void setHasta(Date hasta) {
+    public void setHasta(LocalDateTime hasta) {
         this.hasta = hasta;
     }
 
