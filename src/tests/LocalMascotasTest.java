@@ -19,7 +19,6 @@ public class LocalMascotasTest {
     public static void main(String[] args) {
         LocalMascotas local = new LocalMascotas();
         local.simularIngresos(12);
-        
     }
     
 }

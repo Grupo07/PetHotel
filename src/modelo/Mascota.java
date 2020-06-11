@@ -28,7 +28,7 @@ public abstract class Mascota {
         this.comidaKilos= 0;
     }
     
-    public abstract void definirAlimentacion();
+    protected abstract void definirAlimentacion();
 
     public int getId() {
         return id;

@@ -55,7 +55,7 @@ public class LocalMascotas {
             } else if (tipo == TipoAlimento.PAJARO) {
                 mascota = new Pajaro(id, nombre, estaEnferma, raza, dueño);
             }
-            //Generando un contrato 
+            //Generando un contrato
             LocalDateTime today = LocalDateTime.now();
             LocalDateTime desde = today.minusDays(random.nextInt(10) + 0L);
             LocalDateTime hasta = today.plusDays(random.nextInt(10) + 0L);
