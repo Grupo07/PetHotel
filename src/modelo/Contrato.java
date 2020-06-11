@@ -14,15 +14,14 @@ public class Contrato {
     private int numero;
     private Date desde;
     private Date hasta;
-    private int idMascota;
+    private Mascota Mascota;
     private double costoXDia;
     private ArrayList<BitacoraAlimentacion> registros;
 
-    public Contrato(int numero, Date desde, Date hasta, int idMascota, double costoXDia) {
-        this.numero = numero;
+    public Contrato( Date desde, Date hasta, Mascota Mascota, double costoXDia) {
         this.desde = desde;
         this.hasta = hasta;
-        this.idMascota = idMascota;
+        this.Mascota = Mascota;
         this.costoXDia = costoXDia;
         this.registros = new ArrayList<>();
     }
@@ -51,12 +50,12 @@ public class Contrato {
         this.hasta = hasta;
     }
 
-    public int getIdMascota() {
-        return idMascota;
+    public Mascota getMascota() {
+        return Mascota;
     }
 
-    public void setIdMascota(int idMascota) {
-        this.idMascota = idMascota;
+    public void setMascota(Mascota Mascota) {
+        this.Mascota = Mascota;
     }
 
     public double getCostoXDia() {
@@ -77,7 +76,7 @@ public class Contrato {
 
     @Override
     public String toString() {
-        return "Contrato{" + "numero=" + numero + ", desde=" + desde + ", hasta=" + hasta + ", idMascota=" + idMascota + ", costoXDia=" + costoXDia + ", registros=" + registros + '}';
+        return "Contrato{" + "numero=" + numero + ", desde=" + desde + ", hasta=" + hasta + ", idMascota=" + Mascota + ", costoXDia=" + costoXDia + ", registros=" + registros + '}';
     }
     
 }

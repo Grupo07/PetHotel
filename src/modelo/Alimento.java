@@ -12,6 +12,7 @@ public class Alimento {
     private String nombre;
     private String marca;
     private double existenciaKilos;
+    private TipoAlimento tipo;
 
     public Alimento(String codigo, String nombre, String marca, double existenciaKilos) {
         this.codigo = codigo;
@@ -51,6 +52,16 @@ public class Alimento {
     public void setExistenciaKilos(double existenciaKilos) {
         this.existenciaKilos = existenciaKilos;
     }
+
+    public TipoAlimento getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoAlimento tipo) {
+        this.tipo = tipo;
+    }
+    
+    
 
     @Override
     public String toString() {
