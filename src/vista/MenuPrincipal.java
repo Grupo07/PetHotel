@@ -41,19 +41,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.formContratoDesde.setDate(new Date());
         this.formContratoHasta.setDate(formContratoDesde.getDate());
         
-        // valores de prueba
-        Contrato[] contratos = new Contrato[10];
-        Contrato contrato1 = new Contrato(LocalDateTime.now(), LocalDateTime.now(), new Perro(22, "Tob", false, "Chihuahua", new Dueño("John", "88665412")), 2.0);
-        contrato1.setNumero(0);
-        contrato1.setDisponible(false);
-        Contrato contrato2 = new Contrato(LocalDateTime.now(), LocalDateTime.now(), new Perro(55, "Sam", true, "Labrador", new Dueño("Mason", "87666419")), 5.0);
-        contrato2.setNumero(1);
-        contratos[0] = contrato1;
-        contratos[1] = contrato2;
-        hotel.setContratos(contratos);
-        actualizarTablaContratos();
-        
         configurarTablaContratos();
+        
+        actualizarTablaContratos();
     }
     
     /**
@@ -79,9 +69,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     if (eliminacionConfirmada == 0) {
                         
                         // Eliminar contrato
-                        Contrato[] contratos = hotel.getContratos();
-                        contratos[contratoId] = null;
-                        hotel.setContratos(contratos);
+                        hotel.retirarContrato(contratoId);
                         actualizarTablaContratos();
                        
                     }
@@ -100,15 +88,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 
                 String nuevoEstado = (String) tablaContratos.getValueAt(fila, columna);
                 if (nuevoEstado.equals("Disponible") || nuevoEstado.equals("Extraviado")) {
-                  int contratoId = (int) tablaContratos.getValueAt(fila, 0);
-                  boolean disponible = (nuevoEstado.equals("Disponible"));
-                  
+                    int contratoId = (int) tablaContratos.getValueAt(fila, 0);
+                    boolean disponible = (nuevoEstado.equals("Disponible"));
+                    
                     // Actualizar disponibilidad de contrato
-                    Contrato[] contratos = hotel.getContratos();
-                    Contrato contrato = contratos[contratoId];
-                    contrato.setDisponible(disponible);
-                    contratos[contratoId] = contrato;
-                    hotel.setContratos(contratos);
+                    hotel.actualizarEstadoContrato(contratoId, disponible);
                     actualizarTablaContratos();
                   
                 } else {
@@ -223,17 +207,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         modelo.setRowCount(0);
         Contrato[] contratos = hotel.getContratos();
         for(Contrato contrato : contratos) {
-            if (contrato != null) {
-             int id = contrato.getNumero();
-            String dueño = contrato.getMascota().getElDueño().getNombre();
-            String mascota = contrato.getMascota().getNombre();
+            int id = contrato.getNumero();
+            if (id != -1) {
+                String dueño = contrato.getMascota().getElDueño().getNombre();
+                String mascota = contrato.getMascota().getNombre();
             
-            DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            String desde = contrato.getDesde().format(formatoFecha);
-            String hasta = contrato.getHasta().format(formatoFecha);
+                DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                String desde = contrato.getDesde().format(formatoFecha);
+                String hasta = contrato.getHasta().format(formatoFecha);
             
-            String estado = (contrato.isDisponible()) ? "Disponible" : "Extraviado";
-            modelo.addRow(new Object[]{id, dueño, mascota, desde, hasta, estado, "X"});   
+                String estado = (contrato.isDisponible()) ? "Disponible" : "Extraviado";
+                modelo.addRow(new Object[]{id, dueño, mascota, desde, hasta, estado, "X"});   
             }
         }
     }
@@ -525,16 +509,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void registrarContrato(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarContrato
         if(formularioContratoEsValido()){
-            int indexDisponible = 2; // hardcode valor !!!!!
+            int indexDisponible = hotel.cupoDisponible();
             boolean hayEspacio = (indexDisponible != -1);
             if (hayEspacio) {
                 Contrato contrato = generarContratoDeFormulario();
                 contrato.setNumero(indexDisponible);
                 
-                // Registrando el contrato
-                Contrato[] contratos = hotel.getContratos();
-                contratos[indexDisponible] = contrato;
-                hotel.setContratos(contratos);
+                hotel.registratContrator(contrato);
                 actualizarTablaContratos();
                 
             } else {
