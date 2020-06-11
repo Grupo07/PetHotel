@@ -14,6 +14,7 @@ import java.util.Date;
 public class Contrato implements Serializable{
     
     private int numero;
+    private boolean disponible;
     private LocalDateTime desde;
     private LocalDateTime hasta;
     private Mascota Mascota;
@@ -84,6 +85,14 @@ public class Contrato implements Serializable{
 
     public void setRegistros(ArrayList<BitacoraAlimentacion> registros) {
         this.registros = registros;
+    }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
     }
 
     @Override
