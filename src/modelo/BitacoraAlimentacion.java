@@ -1,6 +1,7 @@
 
 package modelo;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -10,20 +11,20 @@ import java.util.Date;
  */
 public class BitacoraAlimentacion {
     
-    private Date fecha;
+    private LocalDateTime fecha;
     private EstadoAlimentacion estado;
     private String horario;
 
-    public BitacoraAlimentacion(Date fecha, EstadoAlimentacion estado) {
+    public BitacoraAlimentacion(LocalDateTime fecha, EstadoAlimentacion estado) {
         this.fecha = fecha;
         this.estado = estado;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Random;
 import modelo.AdministradorArchivos;
 import modelo.Alimento;
+import modelo.BitacoraAlimentacion;
 import modelo.Contrato;
 import modelo.Dueño;
 import modelo.Gato;
@@ -154,10 +155,30 @@ public class LocalMascotas {
         return resultado;
     }
 
-    public String alimentarMascota(Date fecha, int idMascota) {
-        return "";
+    public String reportarAlimentacion(BitacoraAlimentacion bitacora, int idMascota) {
+        int indexContrato = -1;
+        for(int i = 0; i < 10; i++){
+            if(contratos[i].getMascota().getId() == idMascota){
+                indexContrato = i;
+            }
+        }
+        if(indexContrato == -1){
+            return "No existe esa mascota";
+        } else {
+            for(int j = 0; j < contratos[indexContrato].getRegistros().size(); j++) {
+                if(contratos[indexContrato].getRegistros().get(j).getFecha()
+                        == bitacora.getFecha()){
+                    if(contratos[indexContrato].getRegistros().get(j).getHorario()
+                            == bitacora.getHorario()){
+                        return "Mascota ya fue alimentada este día y horario";
+                    }
+                }
+            }
+            contratos[indexContrato].agregarRegistro(bitacora);
+            return contratos[indexContrato].getMascota().getNombre() 
+                    + "ha sido alimentado";
+        }
     }
-
     public void simularAlimentacionMascotas(Date fecha) {
 
     }

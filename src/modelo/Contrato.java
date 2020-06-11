@@ -20,7 +20,6 @@ public class Contrato implements Serializable{
     private Mascota Mascota;
     private double costoXDia;
     private ArrayList<BitacoraAlimentacion> registros;
-    private boolean disponible;
 
     public Contrato( LocalDateTime desde, LocalDateTime hasta, Mascota Mascota, double costoXDia) {
         this.desde = desde;
@@ -86,13 +85,9 @@ public class Contrato implements Serializable{
     public void setRegistros(ArrayList<BitacoraAlimentacion> registros) {
         this.registros = registros;
     }
-
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    
+    public void agregarRegistro(BitacoraAlimentacion registro){
+        registros.add(registro);
     }
 
     @Override
