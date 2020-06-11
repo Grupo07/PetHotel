@@ -13,6 +13,7 @@ import java.util.Date;
 public class Contrato {
     
     private int numero;
+    private boolean disponible;
     private LocalDateTime desde;
     private LocalDateTime hasta;
     private Mascota Mascota;
@@ -25,6 +26,7 @@ public class Contrato {
         this.Mascota = Mascota;
         this.costoXDia = costoXDia;
         this.registros = new ArrayList<>();
+        this.disponible = true;
     }
 
     public int getNumero() {
@@ -73,6 +75,14 @@ public class Contrato {
 
     public void setRegistros(ArrayList<BitacoraAlimentacion> registros) {
         this.registros = registros;
+    }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
     }
 
     @Override
