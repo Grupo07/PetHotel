@@ -10,6 +10,7 @@ public class Pez extends Mascota {
 
     public Pez(int id, String nombre, boolean estaEnferma, String raza, Dueño elDueño) {
         super(id, nombre, estaEnferma, raza, elDueño);
+        definirAlimentacion();
     }
     
     @Override
