@@ -83,17 +83,6 @@ public abstract class Mascota implements Serializable{
     public double getComidaKilos() {
         return comidaKilos;
     }
-
-    //    private String nombre;
-    //    protected TipoAlimento tipoAlimento;
-    //    private int id;
-    //    private String raza;
-    
-//    private boolean estaEnferma;
-//    private Dueño elDueño;
-    
-//    protected int vecesAlimentacion;
-//    protected double comidaKilos;
     
     @Override
     public String toString() {
