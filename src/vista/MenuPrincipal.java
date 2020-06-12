@@ -13,6 +13,7 @@ import java.util.Date;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import modelo.Alimento;
 import modelo.BitacoraAlimentacion;
 import modelo.Contrato;
@@ -59,6 +60,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
      * Configura la columna para eliminar contratos.
      */
     private void configurarTablaContratos() {
+        TableColumnModel modeloColumna = tablaContratos.getColumnModel();
+        modeloColumna.getColumn(0).setPreferredWidth(20);
+        modeloColumna.getColumn(2).setPreferredWidth(130);
+        modeloColumna.getColumn(6).setPreferredWidth(50);
+        
         tablaContratos.getColumn("Eliminar").setCellRenderer(new RenderizadorDeBotones());
         tablaContratos.addMouseListener(new MouseAdapter() {
             @Override
@@ -270,7 +276,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             int id = contrato.getNumero();
             if (id != -1) {
                 String dueño = contrato.getMascota().getElDueño().getNombre();
-                String mascota = contrato.getMascota().getNombre();
+                String mascota = contrato.getMascota().getNombre() + ", el " + contrato.getMascota().getCodigoAlimento().toString().toLowerCase();
             
                 DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 String desde = contrato.getDesde().format(formatoFecha);
@@ -350,6 +356,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(204, 204, 204));
 
+        tablaContratos.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
         tablaContratos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -461,7 +468,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                                     .addComponent(formContratoHasta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(formDueñoNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                                     .addComponent(formDueñoTelefono, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(60, 60, 60))))
+                                .addGap(54, 54, 54))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
@@ -536,10 +543,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(simularIngresosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(simularIngresosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 839, Short.MAX_VALUE))
                 .addGap(21, 21, 21))
         );
         jPanel6Layout.setVerticalGroup(
@@ -670,7 +677,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 391, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 444, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -690,7 +697,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1195, Short.MAX_VALUE)
+            .addGap(0, 1248, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
