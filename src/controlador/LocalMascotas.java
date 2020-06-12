@@ -17,7 +17,8 @@ import modelo.Pez;
 import modelo.TipoAlimento;
 
 /**
- *
+ * Controlador central
+ * 
  * @author Esteban Guzmán R.
  */
 public class LocalMascotas {
@@ -26,7 +27,10 @@ public class LocalMascotas {
     private static String[] HORAS_ALIMENTACION = {"6am", "12md", "6pm"};
     private Contrato[] contratos;
     private ArrayList<Alimento> inventario;
-
+    
+    /**
+     * Crea una instancia del controlador con los contratos cargados y el inventario
+     */
     public LocalMascotas() {
         this.contratos = new Contrato[10];
         this.inventario = new ArrayList<>();
@@ -46,6 +50,10 @@ public class LocalMascotas {
         this.contratos = contratos;
     }
 
+    /**
+     * Ingresa con datos aleatorios un cantidad de mascotas al hotel
+     * @param n cantidad de mascotas por ingresar
+     */
     public void simularIngresos(int n) {
         Random random = new Random();
         for (int i = 0; i < n; i++) {
@@ -81,12 +89,23 @@ public class LocalMascotas {
         }
     }
 
+    /**
+     * Devuelve un valor random de un Enum
+     * @param <T> generico
+     * @param clazz enums
+     * @return Valor random de un Enum
+     */
     public static <T extends Enum<?>> T randomEnum(Class<T> clazz) {
         Random random = new Random();
         int x = random.nextInt(clazz.getEnumConstants().length);
         return clazz.getEnumConstants()[x];
     }
 
+    /**
+     * Registra un contrato al sistema
+     * @param contrato contrato a registrar
+     * @return true si hay espacio y se registró el contrato
+     */
     public boolean registratContrator(Contrato contrato) {
         int index = cupoDisponible();
         if (index >= 0) {
@@ -94,6 +113,7 @@ public class LocalMascotas {
             contratos[index] = contrato;
             AdministradorArchivos.guardarContratos(contratos);
             AdministradorArchivos.guardarMascotas(obtenerListaMascota());
+            return true;
 
         } else {
             contrato.setNumero(-1);
@@ -102,6 +122,10 @@ public class LocalMascotas {
         return false;
     }
 
+    /**
+     * Obtiene la lista de mascotas en el hotel
+     * @return lista de mascotas en el hotel
+     */
     public ArrayList<Mascota> obtenerListaMascota() {
         ArrayList<Mascota> lista = new ArrayList<Mascota>();
         for (int i = 0; i < 10; i++) {
@@ -112,6 +136,11 @@ public class LocalMascotas {
         return lista;
     }
 
+    /**
+     * Un setter de la cantidad de kilos de un tipo de alimento
+     * @param tipo tipo de alimento
+     * @param existenciaKilos nueva cantidad de kilos 
+     */
     public void actualizarAlimento(modelo.TipoAlimento tipo, double existenciaKilos) {
         for (int i = 0; i < inventario.size(); i++) {
             if (inventario.get(i).getTipo() == tipo) {
@@ -121,6 +150,10 @@ public class LocalMascotas {
         }
     }
 
+    /**
+     * toString de todas las mascotas registradas
+     * @return toString de todas las mascotas registradas
+     */
     public String mostrarDetalleMascotas() {
         String resultado = "";
         for (int i = 0; i < 10; i++) {
@@ -131,12 +164,20 @@ public class LocalMascotas {
         return resultado;
     }
 
+    /**
+     * Retira un contrato del registro
+     * @param index El id del contrato a retirrar
+     */
     public void retirarContrato(int index) {
         contratos[index] = new Contrato();
         AdministradorArchivos.guardarContratos(contratos);
         AdministradorArchivos.guardarMascotas(obtenerListaMascota());
     }
 
+    /**
+     * Calcula la cantidad de alimento necesario para hoy
+     * @return un string con el detalle de cuanto alimento se necesita de cada tipo
+     */
     public String planearAlimentacion() {
         String resultado = "";
         ArrayList<Mascota> mascotas = obtenerListaMascota();
@@ -160,8 +201,14 @@ public class LocalMascotas {
         return resultado;
     }
 
+    /**
+     * Guarda el reporte de una alimencion en la bitacora, revisa si ya ha sido registrada,
+     * @param bitacora nuevo registro sobre la alimentación
+     * @param idContrato numero del contrato del animal a alimentar
+     * @return Un string con el resultado registrado en la bitacora
+     */
     public String reportarAlimentacion(BitacoraAlimentacion bitacora, int idContrato) {
-        
+
         //Buscar si ya se alimento
         for (int j = 0; j < contratos[idContrato].getRegistros().size(); j++) {
             if (contratos[idContrato].getRegistros().get(j).getFecha().getYear()
@@ -195,22 +242,28 @@ public class LocalMascotas {
                             + " ha sido alimentado";
                 }
             }
-        } else if (bitacora.getEstado() == EstadoAlimentacion.NO_HAY_ALIMENTO){
+        } else if (bitacora.getEstado() == EstadoAlimentacion.NO_HAY_ALIMENTO) {
             return contratos[idContrato].getMascota().getCodigoAlimento() + ":"
-                            + contratos[idContrato].getMascota().getNombre()
-                            + " no fue alimentado, no hay alimento";
-        } else if (bitacora.getEstado() == EstadoAlimentacion.NO_QUISO){
-            return  contratos[idContrato].getMascota().getCodigoAlimento() + ":"
-                            + contratos[idContrato].getMascota().getNombre()
-                            + " no fue alimentado, porque estaba enfermo";
+                    + contratos[idContrato].getMascota().getNombre()
+                    + " no fue alimentado, no hay suficiente alimento";
+        } else if (bitacora.getEstado() == EstadoAlimentacion.NO_QUISO) {
+            return contratos[idContrato].getMascota().getCodigoAlimento() + ":"
+                    + contratos[idContrato].getMascota().getNombre()
+                    + " no fue alimentado, porque estaba enfermo";
         } else {
             return contratos[idContrato].getMascota().getCodigoAlimento() + ":"
-                            + contratos[idContrato].getMascota().getNombre()
-                            + " no fue alimentado, porque se perdío su información";
+                    + contratos[idContrato].getMascota().getNombre()
+                    + " no fue alimentado, porque se perdío su información";
         }
         return null;
     }
 
+    /**
+     * Genera un random de registros para todas las mascotas. También pierde 
+     * y encuentra contratos.
+     * @param fecha Fecha cuando simulan los registros
+     * @return Un resumen de cada registro de alimentacion
+     */
     public String simularAlimentacionMascotas(LocalDateTime fecha) {
         String resultado = "";
         Random random = new Random();
@@ -236,6 +289,11 @@ public class LocalMascotas {
         return resultado;
     }
 
+    /**
+     * Get de la cantidad de alimento en kilos de un tipo de alimento
+     * @param tipo tipo de alimento
+     * @return cantidad en kilos del alimento
+     */
     public double cantidadAlimento(TipoAlimento tipo) {
         for (int i = 0; i < inventario.size(); i++) {
             if (inventario.get(i).getTipo() == tipo) {
@@ -245,6 +303,10 @@ public class LocalMascotas {
         return -1;
     }
 
+    /**
+     * Gerena un archivo txt con las bitacora del día con todas las mascotas
+     * @param fecha 
+     */
     public void generarBitacoraDeFecha(LocalDateTime fecha) {
         String resultado = "";
         for (int i = 0; i < 10; i++) {
@@ -258,9 +320,15 @@ public class LocalMascotas {
         }
         AdministradorArchivos.guardarReporte(resultado,
                 "Reporte" + fecha.getDayOfMonth() + "_" + fecha.getMonth()
-                        + "_" + fecha.getYear() + ".txt");
+                + "_" + fecha.getYear() + ".txt");
     }
 
+    /**
+     * Saca los registros de un contrato
+     * @param fecha fecha de los registros a sacar
+     * @param lista lista con todos los registros
+     * @return registros filtrados
+     */
     public String obtenerRegistros(LocalDateTime fecha,
             ArrayList<BitacoraAlimentacion> lista) {
 
@@ -277,11 +345,20 @@ public class LocalMascotas {
         return resultado;
     }
 
+    /**
+     * Actualiza el estado de un contrato
+     * @param id id del contrato
+     * @param disponible  nuevo estado del contrato
+     */
     public void actualizarEstadoContrato(int id, boolean disponible) {
         contratos[id].setDisponible(disponible);
         AdministradorArchivos.guardarContratos(contratos);
     }
 
+    /**
+     * En caso de haber un cupo disponible, devuelve el valor 
+     * @return index disponible para registrar un contrato
+     */
     public int cupoDisponible() {
         for (int i = 0; i < 10; i++) {
             if (contratos[i].getMascota() == null) {
@@ -289,14 +366,6 @@ public class LocalMascotas {
             }
         }
         return -1;
-    }
-
-    public void llenarNulls() {
-        for (int i = 0; i < 10; i++) {
-            contratos[i] = new Contrato();
-        }
-        AdministradorArchivos.guardarContratos(contratos);
-        AdministradorArchivos.guardarMascotas(obtenerListaMascota());
     }
 
 }
