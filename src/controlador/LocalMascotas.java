@@ -187,6 +187,19 @@ public class LocalMascotas {
                 }
             }
             contratos[indexContrato].agregarRegistro(bitacora);
+            //Rebajando la cantidad de comida en inventario
+            if(bitacora.getEstado() == EstadoAlimentacion.ALIMENTADO){
+                double nuevaCantidadKilos = -1;
+                for(int i = 0; i < inventario.size();i++){
+                    if(inventario.get(i).getTipo() == 
+                            contratos[i].getMascota().getCodigoAlimento()){
+                        nuevaCantidadKilos = inventario.get(i).getExistenciaKilos() 
+                                - contratos[i].getMascota().getComidaKilos();
+                    }
+                }
+                actualizarAlimento(contratos[indexContrato]
+                        .getMascota().getCodigoAlimento(),nuevaCantidadKilos);
+            }
             return contratos[indexContrato].getMascota().getNombre()
                     + "ha sido alimentado";
         }
@@ -256,6 +269,7 @@ public class LocalMascotas {
 
     public void actualizarEstadoContrato(int id, boolean disponible) {
         contratos[id].setDisponible(disponible);
+        AdministradorArchivos.guardarContratos(contratos);
     }
 
     public int cupoDisponible() {
