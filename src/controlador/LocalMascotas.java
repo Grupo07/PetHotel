@@ -240,7 +240,8 @@ public class LocalMascotas {
             }
         }
         AdministradorArchivos.guardarReporte(resultado,
-                "Reporte" + fecha.getDayOfMonth() + "/" + fecha.getDayOfMonth() + ".txt");
+                "Reporte" + fecha.getDayOfMonth() + "_" + fecha.getDayOfMonth() 
+                        + "_" + fecha.getYear() + ".txt");
     }
 
     public String obtenerRegistros(LocalDateTime fecha,
