@@ -184,9 +184,10 @@ public class LocalMascotas {
             double nuevaCantidadKilos = -1;
             for (int i = 0; i < inventario.size(); i++) {
                 if (inventario.get(i).getTipo()
-                        == contratos[i].getMascota().getCodigoAlimento()) {
+                        == contratos[idContrato].getMascota().getCodigoAlimento()) {
                     nuevaCantidadKilos = inventario.get(i).getExistenciaKilos()
-                            - contratos[i].getMascota().getComidaKilos();
+                            - contratos[idContrato].getMascota().getComidaKilos();
+                    System.out.println("Rebajando:"+contratos[idContrato].getMascota().getComidaKilos());
                 }
             }
             actualizarAlimento(contratos[idContrato]
@@ -233,7 +234,8 @@ public class LocalMascotas {
         String resultado = "";
         for (int i = 0; i < 10; i++) {
             if (contratos[i].getMascota() != null) {
-                resultado += contratos[i].getMascota().getId() + "/"
+                resultado += contratos[i].getMascota().getCodigoAlimento() + "/"
+                        + contratos[i].getMascota().getId() + "/"
                         + contratos[i].getMascota().getNombre() + ": "
                         + obtenerRegistros(fecha, contratos[i].getRegistros())
                         + "\n";
