@@ -188,15 +188,27 @@ public class LocalMascotas {
                         == contratos[idContrato].getMascota().getCodigoAlimento()) {
                     nuevaCantidadKilos = inventario.get(i).getExistenciaKilos()
                             - contratos[idContrato].getMascota().getComidaKilos();
-                    System.out.println("Rebajando:"+contratos[idContrato].getMascota().getComidaKilos());
+                    actualizarAlimento(contratos[idContrato].getMascota()
+                            .getCodigoAlimento(), nuevaCantidadKilos);
+                    return contratos[idContrato].getMascota().getCodigoAlimento() + ":"
+                            + contratos[idContrato].getMascota().getNombre()
+                            + " ha sido alimentado";
                 }
             }
-            actualizarAlimento(contratos[idContrato]
-                    .getMascota().getCodigoAlimento(), nuevaCantidadKilos);
+        } else if (bitacora.getEstado() == EstadoAlimentacion.NO_HAY_ALIMENTO){
+            return contratos[idContrato].getMascota().getCodigoAlimento() + ":"
+                            + contratos[idContrato].getMascota().getNombre()
+                            + " no fue alimentado, no hay alimento";
+        } else if (bitacora.getEstado() == EstadoAlimentacion.NO_QUISO){
+            return  contratos[idContrato].getMascota().getCodigoAlimento() + ":"
+                            + contratos[idContrato].getMascota().getNombre()
+                            + " no fue alimentado, porque estaba enfermo";
+        } else {
+            return contratos[idContrato].getMascota().getCodigoAlimento() + ":"
+                            + contratos[idContrato].getMascota().getNombre()
+                            + " no fue alimentado, porque se perdío su información";
         }
-        return contratos[idContrato].getMascota().getCodigoAlimento() + ":"
-                + contratos[idContrato].getMascota().getNombre()
-                    + " ha sido alimentado";
+        return null;
     }
 
     public String simularAlimentacionMascotas(LocalDateTime fecha) {
