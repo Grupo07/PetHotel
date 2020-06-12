@@ -14,8 +14,10 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import modelo.Alimento;
+import modelo.BitacoraAlimentacion;
 import modelo.Contrato;
 import modelo.Dueño;
+import modelo.EstadoAlimentacion;
 import modelo.Gato;
 import modelo.Mascota;
 import modelo.Pajaro;
@@ -43,6 +45,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
         this.formContratoDesde.setDate(new Date());
         this.formContratoHasta.setDate(formContratoDesde.getDate());
+        
+        this.fechaReportarAlimentacion.setDate(new Date());
         
         configurarTablaContratos();
         configurarTablaInventario();
@@ -137,6 +141,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 }
             }
         });
+        tablaInventario.setRowHeight(54);
     }
     
     /**
@@ -326,6 +331,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaInventario = new javax.swing.JTable();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        estadoReportarAlimentacion = new javax.swing.JComboBox<>();
+        idReportarAlimentacion = new javax.swing.JComboBox<>();
+        fechaReportarAlimentacion = new com.toedter.calendar.JDateChooser();
+        reportarAlimentacionBtn = new javax.swing.JButton();
+        horarioReportarAlimentacion = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -565,12 +579,98 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tablaInventario);
 
+        jPanel10.setBackground(new java.awt.Color(204, 204, 204));
+
+        jLabel12.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Reportar Alimentación");
+
+        jLabel13.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel13.setText("Número ");
+
+        estadoReportarAlimentacion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        estadoReportarAlimentacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALIMENTADO", "NO_QUISO", "NO_HAY_ALIMENTO", "SIN_INFORMACION" }));
+
+        idReportarAlimentacion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        idReportarAlimentacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
+
+        reportarAlimentacionBtn.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        reportarAlimentacionBtn.setText("Reportar");
+        reportarAlimentacionBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportarAlimentacion(evt);
+            }
+        });
+
+        horarioReportarAlimentacion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        horarioReportarAlimentacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "6am", "12md", "6pm" }));
+
+        jLabel14.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel14.setText("de Contrato");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel13)
+                                    .addComponent(estadoReportarAlimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(reportarAlimentacionBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(fechaReportarAlimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(idReportarAlimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                                .addComponent(horarioReportarAlimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(23, 23, 23))))
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(idReportarAlimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(horarioReportarAlimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(estadoReportarAlimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fechaReportarAlimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addComponent(reportarAlimentacionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(730, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 391, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -578,8 +678,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(586, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 255, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(482, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Alimentacion", jPanel1);
@@ -648,6 +750,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_simularIngresos
 
+    private void reportarAlimentacion(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportarAlimentacion
+        Date fechaOriginal = this.fechaReportarAlimentacion.getDate();
+        if (fechaOriginal != null) {
+            LocalDateTime fecha = aLocalDateTime(fechaOriginal);
+            EstadoAlimentacion estado = EstadoAlimentacion.valueOf((String) estadoReportarAlimentacion.getSelectedItem());
+            String horario = (String) horarioReportarAlimentacion.getSelectedItem();
+            BitacoraAlimentacion bitacora = new BitacoraAlimentacion(fecha, estado, horario);
+            
+            int idContrato = Integer.parseInt((String) idReportarAlimentacion.getSelectedItem());
+            String respuesta = hotel.reportarAlimentacion(bitacora, idContrato);
+            JOptionPane.showMessageDialog(null, respuesta);
+            actualizarTablaInventario();
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor ingresar una fecha para reportar alimentación");
+        }
+    }//GEN-LAST:event_reportarAlimentacion
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -681,6 +801,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> estadoReportarAlimentacion;
+    private com.toedter.calendar.JDateChooser fechaReportarAlimentacion;
     private com.toedter.calendar.JDateChooser formContratoDesde;
     private com.toedter.calendar.JDateChooser formContratoHasta;
     private javax.swing.JSpinner formCosto;
@@ -691,6 +813,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField formMascotaNombre;
     private javax.swing.JTextField formMascotaRaza;
     private javax.swing.JComboBox<String> formMascotaTipo;
+    private javax.swing.JComboBox<String> horarioReportarAlimentacion;
+    private javax.swing.JComboBox<String> idReportarAlimentacion;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -702,6 +826,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -711,6 +838,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -722,6 +850,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton registrarContratoBtn;
+    private javax.swing.JButton reportarAlimentacionBtn;
     private javax.swing.JButton simularIngresosBtn;
     private javax.swing.JTable tablaContratos;
     private javax.swing.JTable tablaInventario;
