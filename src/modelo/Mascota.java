@@ -84,9 +84,31 @@ public abstract class Mascota implements Serializable{
         return comidaKilos;
     }
 
+    //    private String nombre;
+    //    protected TipoAlimento tipoAlimento;
+    //    private int id;
+    //    private String raza;
+    
+//    private boolean estaEnferma;
+//    private Dueño elDueño;
+    
+//    protected int vecesAlimentacion;
+//    protected double comidaKilos;
+    
     @Override
     public String toString() {
-        return "Mascota{" + "id=" + id + ", nombre=" + nombre + ", estaEnferma=" + estaEnferma + ", raza=" + raza + ", elDue\u00f1o=" + elDueño + ", tipoAlimento=" + tipoAlimento + ", vecesAlimentacion=" + vecesAlimentacion + ", comidaKilos=" + comidaKilos + '}';
+        String toString = nombre + ", el " + tipoAlimento.toString().toLowerCase() + ", id: " + String.valueOf(id) + ", raza: " + raza + ". " ;
+        
+        toString += "Enferma: ";
+        String enferma = (estaEnferma) ? "Sí" : "No";
+        toString += enferma + ". ";
+        
+        toString += "Come " + String.valueOf(comidaKilos) + " kg, " + String.valueOf(vecesAlimentacion) + " ";
+        String vezOVeces = (vecesAlimentacion == 1) ? "vez" : "veces";
+        toString += vezOVeces + " al día. ";
+        
+        toString +=  "Dueño: " + elDueño.getNombre() + " .";        
+        return toString;
     }
      
 }
