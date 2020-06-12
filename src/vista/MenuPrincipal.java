@@ -792,7 +792,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void simularAlimentacionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simularAlimentacionBtnActionPerformed
         Date fecha = simularAlimentacionFecha.getDate();
         if (fecha != null) {
-            hotel.simularAlimentacionMascotas(aLocalDateTime(fecha));
+            JOptionPane.showMessageDialog(null, hotel.simularAlimentacionMascotas(aLocalDateTime(fecha)));
+            actualizarTablaInventario();
         } else {
             JOptionPane.showMessageDialog(null, "Por favor ingrese una fecha para la simulación de alimentos");
         }
@@ -904,17 +905,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser generarBitacoraFecha;
     private javax.swing.JComboBox<String> horarioReportarAlimentacion;
     private javax.swing.JComboBox<String> idReportarAlimentacion;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private com.toedter.calendar.JDateChooser jDateChooser3;
-    private com.toedter.calendar.JDateChooser jDateChooser4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -922,20 +913,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JSpinner jSpinner3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton mostrarDetallesMascotasBtn;
     private javax.swing.JButton planearAlimentacionBtn;
