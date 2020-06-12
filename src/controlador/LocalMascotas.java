@@ -179,6 +179,7 @@ public class LocalMascotas {
             }
         }
         contratos[idContrato].agregarRegistro(bitacora);
+        AdministradorArchivos.guardarContratos(contratos);
         //Rebajando la cantidad de comida en inventario
         if (bitacora.getEstado() == EstadoAlimentacion.ALIMENTADO) {
             double nuevaCantidadKilos = -1;
@@ -198,7 +199,8 @@ public class LocalMascotas {
                     + " ha sido alimentado";
     }
 
-    public void simularAlimentacionMascotas(LocalDateTime fecha) {
+    public String simularAlimentacionMascotas(LocalDateTime fecha) {
+        String resultado = "";
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
             if (contratos[i].getMascota() != null) {
@@ -214,11 +216,12 @@ public class LocalMascotas {
                 }
                 for (int j = 0; j < contratos[i].getMascota().getVecesAlimentacion(); j++) {
                     BitacoraAlimentacion registro = new BitacoraAlimentacion(fecha, estado, HORAS_ALIMENTACION[j]);
-                    reportarAlimentacion(registro, i);
+                    resultado = reportarAlimentacion(registro, i) + "\n";
                 }
 
             }
         }
+        return resultado;
     }
 
     public double cantidadAlimento(TipoAlimento tipo) {
@@ -242,7 +245,7 @@ public class LocalMascotas {
             }
         }
         AdministradorArchivos.guardarReporte(resultado,
-                "Reporte" + fecha.getDayOfMonth() + "_" + fecha.getDayOfMonth() 
+                "Reporte" + fecha.getDayOfMonth() + "_" + fecha.getMonth()
                         + "_" + fecha.getYear() + ".txt");
     }
 
