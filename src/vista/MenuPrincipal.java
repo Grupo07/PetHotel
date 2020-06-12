@@ -57,6 +57,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         actualizarTablaContratos();
         actualizarTablaInventario();
         
+        JOptionPane.showMessageDialog(null, "El estado de un contrato y las cantidades de comida del inventario pueden ser actualizadas al editar las tablas y pulsar enter.");
     }
     
     /**
