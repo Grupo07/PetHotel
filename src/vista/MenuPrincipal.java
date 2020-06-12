@@ -48,12 +48,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.formContratoHasta.setDate(formContratoDesde.getDate());
         
         this.fechaReportarAlimentacion.setDate(new Date());
+        this.simularAlimentacionFecha.setDate(new Date());
+        this.generarBitacoraFecha.setDate(new Date());
         
         configurarTablaContratos();
         configurarTablaInventario();
         
         actualizarTablaContratos();
         actualizarTablaInventario();
+        
     }
     
     /**
@@ -346,7 +349,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         reportarAlimentacionBtn = new javax.swing.JButton();
         horarioReportarAlimentacion = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        mostrarDetallesMascotasBtn = new javax.swing.JButton();
+        planearAlimentacionBtn = new javax.swing.JButton();
+        generarBitacoraFecha = new com.toedter.calendar.JDateChooser();
+        simularAlimentacionFecha = new com.toedter.calendar.JDateChooser();
+        simularAlimentacionBtn = new javax.swing.JButton();
+        generarBitacoraBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 800));
@@ -546,7 +554,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(simularIngresosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 839, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE))
                 .addGap(21, 21, 21))
         );
         jPanel6Layout.setVerticalGroup(
@@ -670,15 +678,60 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        mostrarDetallesMascotasBtn.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        mostrarDetallesMascotasBtn.setText("Mostrar Detalles de Mascotas");
+        mostrarDetallesMascotasBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarDetallesMascotasBtnActionPerformed(evt);
+            }
+        });
+
+        planearAlimentacionBtn.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        planearAlimentacionBtn.setText("Planear Alimentación");
+        planearAlimentacionBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                planearAlimentacionBtnActionPerformed(evt);
+            }
+        });
+
+        simularAlimentacionBtn.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        simularAlimentacionBtn.setText("Simular Alimentacion");
+        simularAlimentacionBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simularAlimentacionBtnActionPerformed(evt);
+            }
+        });
+
+        generarBitacoraBtn.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        generarBitacoraBtn.setText("Generar Bitácora");
+        generarBitacoraBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generarBitacoraBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 444, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(planearAlimentacionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mostrarDetallesMascotasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 309, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(simularAlimentacionFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(6, 6, 6)
+                            .addComponent(simularAlimentacionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(generarBitacoraFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(generarBitacoraBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -688,23 +741,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 255, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(482, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(mostrarDetallesMascotasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(87, 87, 87))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(simularAlimentacionFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                            .addComponent(simularAlimentacionBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(96, 96, 96)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(generarBitacoraFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(planearAlimentacionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(generarBitacoraBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(102, 102, 102))
         );
 
         jTabbedPane1.addTab("Alimentacion", jPanel1);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1248, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 749, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("tab2", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -726,36 +780,30 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void registrarContrato(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarContrato
-        if(formularioContratoEsValido()){
-            int indexDisponible = hotel.cupoDisponible();
-            boolean hayEspacio = (indexDisponible != -1);
-            if (hayEspacio) {
-                Contrato contrato = generarContratoDeFormulario();
-                contrato.setNumero(indexDisponible);
-                
-                hotel.registratContrator(contrato);
-                actualizarTablaContratos();
-                
-            } else {
-                JOptionPane.showMessageDialog(null, "El hotel está lleno");
-            }
-        }
-    }//GEN-LAST:event_registrarContrato
-
-    private void simularIngresos(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simularIngresos
-        String numeroDeIngresos = JOptionPane.showInputDialog("Ingrese el número de ingresos");
-        
-        if (esUnNumero(numeroDeIngresos)) {
-            int cantidadIngresos = Integer.parseInt(numeroDeIngresos);
-            hotel.simularIngresos(cantidadIngresos);
-            actualizarTablaContratos();
-            
+    private void generarBitacoraBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarBitacoraBtnActionPerformed
+        Date fecha = generarBitacoraFecha.getDate();
+        if (fecha != null) {
+            hotel.generarBitacoraDeFecha(aLocalDateTime(fecha));
         } else {
-            JOptionPane.showMessageDialog(null, "Por favor ingresar un número válido");
+            JOptionPane.showMessageDialog(null, "Por favor ingrese una fecha para generar la bitácora");
+    }//GEN-LAST:event_generarBitacoraBtnActionPerformed
+
+    private void simularAlimentacionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simularAlimentacionBtnActionPerformed
+        Date fecha = simularAlimentacionFecha.getDate();
+        if (fecha != null) {
+            hotel.simularAlimentacionMascotas(aLocalDateTime(fecha));
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor ingrese una fecha para la simulación de alimentos");
         }
-        
-    }//GEN-LAST:event_simularIngresos
+    }//GEN-LAST:event_simularAlimentacionBtnActionPerformed
+
+    private void planearAlimentacionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planearAlimentacionBtnActionPerformed
+        JOptionPane.showMessageDialog(null, hotel.planearAlimentacion());
+    }//GEN-LAST:event_planearAlimentacionBtnActionPerformed
+
+    private void mostrarDetallesMascotasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarDetallesMascotasBtnActionPerformed
+        JOptionPane.showMessageDialog(null, hotel.mostrarDetalleMascotas());
+    }//GEN-LAST:event_mostrarDetallesMascotasBtnActionPerformed
 
     private void reportarAlimentacion(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportarAlimentacion
         Date fechaOriginal = this.fechaReportarAlimentacion.getDate();
@@ -764,16 +812,47 @@ public class MenuPrincipal extends javax.swing.JFrame {
             EstadoAlimentacion estado = EstadoAlimentacion.valueOf((String) estadoReportarAlimentacion.getSelectedItem());
             String horario = (String) horarioReportarAlimentacion.getSelectedItem();
             BitacoraAlimentacion bitacora = new BitacoraAlimentacion(fecha, estado, horario);
-            
+
             int idContrato = Integer.parseInt((String) idReportarAlimentacion.getSelectedItem());
             String respuesta = hotel.reportarAlimentacion(bitacora, idContrato);
             JOptionPane.showMessageDialog(null, respuesta);
             actualizarTablaInventario();
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "Por favor ingresar una fecha para reportar alimentación");
         }
     }//GEN-LAST:event_reportarAlimentacion
+
+    private void simularIngresos(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simularIngresos
+        String numeroDeIngresos = JOptionPane.showInputDialog("Ingrese el número de ingresos");
+
+        if (esUnNumero(numeroDeIngresos)) {
+            int cantidadIngresos = Integer.parseInt(numeroDeIngresos);
+            hotel.simularIngresos(cantidadIngresos);
+            actualizarTablaContratos();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor ingresar un número válido");
+        }
+
+    }//GEN-LAST:event_simularIngresos
+
+    private void registrarContrato(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarContrato
+        if(formularioContratoEsValido()){
+            int indexDisponible = hotel.cupoDisponible();
+            boolean hayEspacio = (indexDisponible != -1);
+            if (hayEspacio) {
+                Contrato contrato = generarContratoDeFormulario();
+                contrato.setNumero(indexDisponible);
+
+                hotel.registratContrator(contrato);
+                actualizarTablaContratos();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "El hotel está lleno");
+            }
+        }
+    }//GEN-LAST:event_registrarContrato
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -820,6 +899,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField formMascotaNombre;
     private javax.swing.JTextField formMascotaRaza;
     private javax.swing.JComboBox<String> formMascotaTipo;
+    private javax.swing.JButton generarBitacoraBtn;
+    private com.toedter.calendar.JDateChooser generarBitacoraFecha;
     private javax.swing.JComboBox<String> horarioReportarAlimentacion;
     private javax.swing.JComboBox<String> idReportarAlimentacion;
     private javax.swing.JButton jButton3;
@@ -846,7 +927,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -856,8 +936,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton mostrarDetallesMascotasBtn;
+    private javax.swing.JButton planearAlimentacionBtn;
     private javax.swing.JButton registrarContratoBtn;
     private javax.swing.JButton reportarAlimentacionBtn;
+    private javax.swing.JButton simularAlimentacionBtn;
+    private com.toedter.calendar.JDateChooser simularAlimentacionFecha;
     private javax.swing.JButton simularIngresosBtn;
     private javax.swing.JTable tablaContratos;
     private javax.swing.JTable tablaInventario;
