@@ -192,8 +192,9 @@ public class LocalMascotas {
             actualizarAlimento(contratos[idContrato]
                     .getMascota().getCodigoAlimento(), nuevaCantidadKilos);
         }
-        return contratos[idContrato].getMascota().getNombre()
-                    + "ha sido alimentado";
+        return contratos[idContrato].getMascota().getCodigoAlimento() + ":"
+                + contratos[idContrato].getMascota().getNombre()
+                    + " ha sido alimentado";
     }
 
     public void simularAlimentacionMascotas(LocalDateTime fecha) {
@@ -212,7 +213,7 @@ public class LocalMascotas {
                 }
                 for (int j = 0; j < contratos[i].getMascota().getVecesAlimentacion(); j++) {
                     BitacoraAlimentacion registro = new BitacoraAlimentacion(fecha, estado, HORAS_ALIMENTACION[j]);
-                    reportarAlimentacion(registro, contratos[i].getMascota().getId());
+                    reportarAlimentacion(registro, i);
                 }
 
             }
