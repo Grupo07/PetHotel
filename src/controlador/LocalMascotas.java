@@ -160,49 +160,40 @@ public class LocalMascotas {
         return resultado;
     }
 
-    public String reportarAlimentacion(BitacoraAlimentacion bitacora, int idMascota) {
-        int indexContrato = -1;
-        for (int i = 0; i < 10; i++) {
-            if (contratos[i].getMascota().getId() == idMascota) {
-                indexContrato = i;
-            }
-        }
-        if (indexContrato == -1) {
-            return "No existe esa mascota";
-        } else {
-            //Buscar si ya se alimento
-            for (int j = 0; j < contratos[indexContrato].getRegistros().size(); j++) {
-                if (contratos[indexContrato].getRegistros().get(j).getFecha().getYear()
-                        == bitacora.getFecha().getYear()) {
-                    if (contratos[indexContrato].getRegistros().get(j).getFecha().getMonth()
-                            == bitacora.getFecha().getMonth()) {
-                        if (contratos[indexContrato].getRegistros().get(j).getFecha().getDayOfMonth()
-                                == bitacora.getFecha().getDayOfMonth()) {
-                            if (contratos[indexContrato].getRegistros().get(j).getHorario()
-                                    == bitacora.getHorario()) {
-                                return "Mascota ya fue alimentada este día y horario";
-                            }
+    public String reportarAlimentacion(BitacoraAlimentacion bitacora, int idContrato) {
+        
+        //Buscar si ya se alimento
+        for (int j = 0; j < contratos[idContrato].getRegistros().size(); j++) {
+            if (contratos[idContrato].getRegistros().get(j).getFecha().getYear()
+                    == bitacora.getFecha().getYear()) {
+                if (contratos[idContrato].getRegistros().get(j).getFecha().getMonth()
+                        == bitacora.getFecha().getMonth()) {
+                    if (contratos[idContrato].getRegistros().get(j).getFecha().getDayOfMonth()
+                            == bitacora.getFecha().getDayOfMonth()) {
+                        if (contratos[idContrato].getRegistros().get(j).getHorario()
+                                == bitacora.getHorario()) {
+                            return "Mascota ya fue alimentada este día y horario";
                         }
                     }
                 }
             }
-            contratos[indexContrato].agregarRegistro(bitacora);
-            //Rebajando la cantidad de comida en inventario
-            if(bitacora.getEstado() == EstadoAlimentacion.ALIMENTADO){
-                double nuevaCantidadKilos = -1;
-                for(int i = 0; i < inventario.size();i++){
-                    if(inventario.get(i).getTipo() == 
-                            contratos[i].getMascota().getCodigoAlimento()){
-                        nuevaCantidadKilos = inventario.get(i).getExistenciaKilos() 
-                                - contratos[i].getMascota().getComidaKilos();
-                    }
-                }
-                actualizarAlimento(contratos[indexContrato]
-                        .getMascota().getCodigoAlimento(),nuevaCantidadKilos);
-            }
-            return contratos[indexContrato].getMascota().getNombre()
-                    + "ha sido alimentado";
         }
+        contratos[idContrato].agregarRegistro(bitacora);
+        //Rebajando la cantidad de comida en inventario
+        if (bitacora.getEstado() == EstadoAlimentacion.ALIMENTADO) {
+            double nuevaCantidadKilos = -1;
+            for (int i = 0; i < inventario.size(); i++) {
+                if (inventario.get(i).getTipo()
+                        == contratos[i].getMascota().getCodigoAlimento()) {
+                    nuevaCantidadKilos = inventario.get(i).getExistenciaKilos()
+                            - contratos[i].getMascota().getComidaKilos();
+                }
+            }
+            actualizarAlimento(contratos[idContrato]
+                    .getMascota().getCodigoAlimento(), nuevaCantidadKilos);
+        }
+        return contratos[idContrato].getMascota().getNombre()
+                    + "ha sido alimentado";
     }
 
     public void simularAlimentacionMascotas(LocalDateTime fecha) {
