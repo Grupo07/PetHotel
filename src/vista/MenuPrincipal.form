@@ -767,7 +767,7 @@
                 <Property name="text" type="java.lang.String" value="Mostrar Detalles de Mascotas"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mostrarDetallesMascotasBtnActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mostrarDetallesMascotas"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="planearAlimentacionBtn">
@@ -793,7 +793,7 @@
                 <Property name="text" type="java.lang.String" value="Simular Alimentacion"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simularAlimentacionBtnActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simularAlimentacion"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="generarBitacoraBtn">
@@ -804,7 +804,7 @@
                 <Property name="text" type="java.lang.String" value="Generar Bit&#xe1;cora"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="generarBitacoraBtnActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="generarBitacora"/>
               </Events>
             </Component>
           </SubComponents>

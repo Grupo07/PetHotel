@@ -75,7 +75,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 int fila = tablaContratos.rowAtPoint(evt.getPoint());  
                 int columna = tablaContratos.columnAtPoint(evt.getPoint());
                 
-                System.out.println(String.valueOf(fila) + "," + String.valueOf(columna));
                 
                 // evitar bug de llamada inesperada con index -1
                 if (fila == -1) return;
@@ -137,12 +136,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 
                 TipoAlimento tipo = TipoAlimento.valueOf((String) tablaInventario.getValueAt(fila, 0));
                 
-                String cantidadString = (String) tablaInventario.getValueAt(fila, 1);
+                String cantidadString = String.valueOf(tablaInventario.getValueAt(fila, 1));
                 
                 if (esUnNumeroDouble(cantidadString)) {
                     double cantidad = Double.parseDouble(cantidadString);
-                    hotel.actualizarAlimento(tipo, cantidad);
-                    actualizarTablaInventario();
+                    
+                    if (cantidad >= 0.0d) {
+                        hotel.actualizarAlimento(tipo, cantidad);
+                        actualizarTablaInventario();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "La cantidad en kg debe ser un numero positivo");
+                        tablaInventario.setValueAt(1.0d, fila, 1); 
+                    }
                     
                 } else {
                     JOptionPane.showMessageDialog(null, "La cantidad en kg debe ser un numero");
@@ -678,7 +683,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         mostrarDetallesMascotasBtn.setText("Mostrar Detalles de Mascotas");
         mostrarDetallesMascotasBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mostrarDetallesMascotasBtnActionPerformed(evt);
+                mostrarDetallesMascotas(evt);
             }
         });
 
@@ -694,7 +699,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         simularAlimentacionBtn.setText("Simular Alimentacion");
         simularAlimentacionBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                simularAlimentacionBtnActionPerformed(evt);
+                simularAlimentacion(evt);
             }
         });
 
@@ -702,7 +707,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         generarBitacoraBtn.setText("Generar Bitácora");
         generarBitacoraBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                generarBitacoraBtnActionPerformed(evt);
+                generarBitacora(evt);
             }
         });
 
@@ -781,31 +786,34 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void generarBitacoraBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarBitacoraBtnActionPerformed
+    private void generarBitacora(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarBitacora
         Date fecha = generarBitacoraFecha.getDate();
         if (fecha != null) {
             hotel.generarBitacoraDeFecha(aLocalDateTime(fecha));
+            JOptionPane.showMessageDialog(null, "La bitácora fue generada exitosamente!");
         } else {
             JOptionPane.showMessageDialog(null, "Por favor ingrese una fecha para generar la bitácora");
-    }//GEN-LAST:event_generarBitacoraBtnActionPerformed
+        }
+    }//GEN-LAST:event_generarBitacora
 
-    private void simularAlimentacionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simularAlimentacionBtnActionPerformed
+    private void simularAlimentacion(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simularAlimentacion
         Date fecha = simularAlimentacionFecha.getDate();
         if (fecha != null) {
             JOptionPane.showMessageDialog(null, hotel.simularAlimentacionMascotas(aLocalDateTime(fecha)));
             actualizarTablaInventario();
+            
         } else {
             JOptionPane.showMessageDialog(null, "Por favor ingrese una fecha para la simulación de alimentos");
         }
-    }//GEN-LAST:event_simularAlimentacionBtnActionPerformed
+    }//GEN-LAST:event_simularAlimentacion
 
     private void planearAlimentacionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planearAlimentacionBtnActionPerformed
         JOptionPane.showMessageDialog(null, hotel.planearAlimentacion());
     }//GEN-LAST:event_planearAlimentacionBtnActionPerformed
 
-    private void mostrarDetallesMascotasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarDetallesMascotasBtnActionPerformed
+    private void mostrarDetallesMascotas(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarDetallesMascotas
         JOptionPane.showMessageDialog(null, hotel.mostrarDetalleMascotas());
-    }//GEN-LAST:event_mostrarDetallesMascotasBtnActionPerformed
+    }//GEN-LAST:event_mostrarDetallesMascotas
 
     private void reportarAlimentacion(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportarAlimentacion
         Date fechaOriginal = this.fechaReportarAlimentacion.getDate();
