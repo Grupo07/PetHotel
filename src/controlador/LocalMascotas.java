@@ -216,7 +216,7 @@ public class LocalMascotas {
                 }
                 for (int j = 0; j < contratos[i].getMascota().getVecesAlimentacion(); j++) {
                     BitacoraAlimentacion registro = new BitacoraAlimentacion(fecha, estado, HORAS_ALIMENTACION[j]);
-                    resultado = reportarAlimentacion(registro, i) + "\n";
+                    resultado += reportarAlimentacion(registro, i) + "\n";
                 }
 
             }
