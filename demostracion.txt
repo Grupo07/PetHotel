@@ -1,0 +1,30 @@
+Link a video de demostración:
+https://drive.google.com/file/d/1bkEM0L8WE1KuqzSZqXT4dnB8bu5Hee7o/view?usp=sharing
+
+
+1. Simular el ingreso de N tipos distintos de mascotas al hotel, estos quedan almacenados en un archivo
+binario. (Mascotas.dat)
+-Click en botón "Simular Ingresos" en la pestaña "Contratos"
+
+2. Listar los detalles de las mascotas alojadas y sus características de alimentación.
+-Click en botón "Mostrar Detalles de Mascotas" en la pestaña "Alimentación"
+
+3. Crear el inventario de alimentos del que dispone el hotel basándose en los requerimientos de
+alimentación de los inquilinos.
+-Ver requerimientos, clik en botón "Planear Alimentación" en la pestaña "Planear Alimentación"
+-Crear el inventario, insertar valores en la tabla de Comida/Kg
+
+4. Simular el proceso de alimentación de las mascotas en los siguientes escenarios:
+a) Hay alimentos para todas las mascotas.
+
+b) Se extravió el expediente de alimentación de los inquilinos.
+- Extraviar un contrato, editar el estado en la tabla de contratos en la pestaña "Contratos"
+
+c) Se acabó un alimento particular.
+d) Se enfermó una mascota y no quiere comer.
+- Enfermar una mascota, click en la opción "Enfermedad" al registrar un contrato
+
+Esto sugiere en cada caso, la generación de la bitácora del asistente que debe quedar registrada en un
+archivo de texto.
+- Las bitácoras quedan guardadas en contratos.dat y al generar un reporte de un día específico se crea un 
+archivo "Reporte"<Fecha>.txt
