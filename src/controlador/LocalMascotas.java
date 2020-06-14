@@ -229,6 +229,13 @@ public class LocalMascotas {
         AdministradorArchivos.guardarContratos(contratos);
         //Rebajando la cantidad de comida en inventario
         if (bitacora.getEstado() == EstadoAlimentacion.ALIMENTADO) {
+            if(cantidadAlimento(contratos[idContrato].getMascota().getCodigoAlimento()) 
+                    < contratos[idContrato].getMascota().getComidaKilos()){
+                bitacora.setEstado(EstadoAlimentacion.NO_HAY_ALIMENTO);
+                return contratos[idContrato].getMascota().getCodigoAlimento() + ":"
+                    + contratos[idContrato].getMascota().getNombre()
+                    + " no fue alimentado, no hay suficiente alimento";
+            }
             double nuevaCantidadKilos = -1;
             for (int i = 0; i < inventario.size(); i++) {
                 if (inventario.get(i).getTipo()
