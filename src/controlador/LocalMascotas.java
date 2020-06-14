@@ -1,5 +1,6 @@
 package controlador;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
@@ -242,6 +243,10 @@ public class LocalMascotas {
                         == contratos[idContrato].getMascota().getCodigoAlimento()) {
                     nuevaCantidadKilos = inventario.get(i).getExistenciaKilos()
                             - contratos[idContrato].getMascota().getComidaKilos();
+                    DecimalFormat df = new DecimalFormat("#.0");
+                    String troncador = "";
+                    troncador = df.format(nuevaCantidadKilos);
+                    nuevaCantidadKilos = Double.parseDouble(troncador);
                     actualizarAlimento(contratos[idContrato].getMascota()
                             .getCodigoAlimento(), nuevaCantidadKilos);
                     return contratos[idContrato].getMascota().getCodigoAlimento() + ":"
