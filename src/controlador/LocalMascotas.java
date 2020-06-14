@@ -220,7 +220,7 @@ public class LocalMascotas {
                             == bitacora.getFecha().getDayOfMonth()) {
                         if (contratos[idContrato].getRegistros().get(j).getHorario()
                                 == bitacora.getHorario()) {
-                            return "Mascota ya fue alimentada este día y horario";
+                            return "Ya hay un registro este día y horario";
                         }
                     }
                 }
@@ -244,8 +244,7 @@ public class LocalMascotas {
                     nuevaCantidadKilos = inventario.get(i).getExistenciaKilos()
                             - contratos[idContrato].getMascota().getComidaKilos();
                     DecimalFormat df = new DecimalFormat("#.0");
-                    String troncador = "";
-                    troncador = df.format(nuevaCantidadKilos);
+                    String troncador = df.format(nuevaCantidadKilos);
                     nuevaCantidadKilos = Double.parseDouble(troncador);
                     actualizarAlimento(contratos[idContrato].getMascota()
                             .getCodigoAlimento(), nuevaCantidadKilos);
